@@ -11,15 +11,14 @@ def mstime():
 	return (int(round(time.time() * 1000)));
 for item in sys.argv[1:]:
 	if (item.rfind(':') > 0):
-		host,portstr = item.split(':');
-		port=int(portstr);
+		host,port = item.split(':');
 	else:
-		host=item; port=80;
-	print('testing:'+host+':'+str(port));
+		host=item; port='80';
+	print('testing:'+host+':'+port);
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 		try:
 			beforetime = mstime();
-			sock.connect((host,port));
+			sock.connect((host,int(port)));
 			print(blue + '\tsuccess' + eol + ' ms:' + str((mstime() - beforetime)));
 		except:
 			print(red + '\tfailed' + eol);
