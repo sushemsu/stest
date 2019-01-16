@@ -14,7 +14,7 @@ for item in sys.argv[1:]:
 		host,port = item.split(':');
 	else:
 		host=item; port='80';
-	print('testing:'+host+':'+str(port));
+	print('testing:'+host+':'+port);
 	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
 		try:
 			beforetime = mstime();
