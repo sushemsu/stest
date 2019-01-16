@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+import sys;
+import socket;
+import time;
+blue='\033[0;36m';
+red='\033[0;31m';
+eol='\033[0;0m';
+# run scripts as ./script host host or ./script host:port host:port
+# default port is 80
+def mstime():
+	return (int(round(time.time() * 1000)));
+for item in sys.argv[1:]:
+	if (item.rfind(':') > 0):
+		host,portstr = item.split(':');
+		port=int(portstr);
+	else:
+		host=item; port=80;
+	print('testing:'+host+':'+str(port));
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+		try:
+			beforetime = mstime();
+			sock.connect((host,port));
+			print(blue + '\tsuccess' + eol + ' ms:' + str((mstime() - beforetime)));
+		except:
+			print(red + '\tfailed' + eol);
+		sock.close();
+		print();
